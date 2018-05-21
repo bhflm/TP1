@@ -5,9 +5,9 @@
 
 #define FIN_LINEA '\0'
 
-char** split(const char* str, char sep){ //MODULARIZAR LOS 2 IF
+char** split(const char* str, char sep){
   if (sep=='\0') return NULL;
-  size_t i=0,j=0,k=0,cant=1; //Arranca en +1 que es el null
+  size_t i=0,j=0,k=0,cant=2; //Cant arranca en 2 porque es caso minimo ("Hola,si" + NULL)
 
   while(str[i]!=FIN_LINEA){
     if(str[i]==sep) cant++;
@@ -24,13 +24,13 @@ char** split(const char* str, char sep){ //MODULARIZAR LOS 2 IF
       k++;
     }
     i++;
-    if(str[i]=='\0'){ //Si esta en el final
+    if(str[i]==FIN_LINEA){
       strv[k]=strndup(&str[j],(i-j));
       j=i+1;
       k++;
     }
   }
-  strv[cant]=NULL;
+  strv[cant-1]=NULL;
   return strv;
 }
 
@@ -46,7 +46,8 @@ char* join(char** strv, char sep){
     if(strv[i][j]==FIN_LINEA){
       if(k+1==len) str[k]=FIN_LINEA;
       else str[k]=sep;
-      j=0,i++,k++;
+      j=0;
+      i++,k++;
     }
     else{
       str[k]=strv[i][j];
@@ -54,7 +55,6 @@ char* join(char** strv, char sep){
     }
   }
   return str;
-
 }
 
 void free_strv(char* strv[]){
@@ -64,15 +64,4 @@ void free_strv(char* strv[]){
     i++;
   }
   free(strv);
-}
-
-int main(){
-  char *orig = "hola,como,va";
-  char sep = ',';
-  char bsep = ';';
-  char** strv=split(orig,sep);
-  char* a = join(strv,bsep);
-  printf("join: %s\n",a);
-  free(strv);
-  return 0;
 }
