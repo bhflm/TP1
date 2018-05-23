@@ -7,7 +7,7 @@
 
 char** split(const char* str, char sep){
   if (sep=='\0') return NULL;
-  size_t i=0,j=0,k=0,cant=2; //Cant arranca en 2 porque es caso minimo ("Hola,si" + NULL)
+  size_t i=0,j=0,k=0,cant=2; 
 
   while(str[i]!=FIN_LINEA){
     if(str[i]==sep) cant++;
