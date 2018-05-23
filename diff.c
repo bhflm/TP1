@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,7 +19,7 @@ int main(int argc, char* argv[]){
   FILE* archivo_1 = fopen(file_1,"r");
   FILE* archivo_2 = fopen(file_2,"r");
   if(!archivo_1 || !archivo_2){
-    fprintf(stderr,"Error al abrir archivo\n");
+    fprintf(stderr,"Archivo erroneo\n");
     return 1;
   }
 
@@ -51,6 +53,7 @@ int main(int argc, char* argv[]){
       free(b);
       leidos_2 = getline(&linea_2,&cap_2,archivo_2);
   }
-
+  free(linea_1),free(linea_2);
+  fclose(archivo_1),fclose(archivo_2);
   return 0;
   }

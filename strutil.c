@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -7,7 +9,7 @@
 
 char** split(const char* str, char sep){
   if (sep=='\0') return NULL;
-  size_t i=0,j=0,k=0,cant=2; 
+  size_t i=0,j=0,k=0,cant=2;
 
   while(str[i]!=FIN_LINEA){
     if(str[i]==sep) cant++;
