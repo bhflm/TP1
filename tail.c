@@ -1,5 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
-#define _GNU_SOURCE 
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,13 +8,18 @@
 
 int main(int argc,char* argv[]){
   if(argc !=2){
-    fprintf(stderr, "Cantidad de parametros erronea\n");
+    fprintf(stderr, "Cantidad de parametros erronea");
     return 1;
   }
   cola_t* cola = cola_crear();
   if(!cola) return 1;
 
   size_t n = atoi(argv[1]);
+  if(n==0){
+    fprintf(stderr,"Tipo de parametro incorrecto");
+    return 1;
+  }
+
   char* linea = NULL;
   size_t capacidad = 0; ssize_t leidos;
 
