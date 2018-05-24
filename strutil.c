@@ -6,16 +6,27 @@
 #include <string.h>
 
 #define FIN_LINEA '\0'
+#define VACIO ""
 
 char** split(const char* str, char sep){
-  if (sep=='\0') return NULL;
   size_t i=0,j=0,k=0,cant=2;
+  if(str==NULL){
+    char** strv=malloc(sizeof(char*));
+    strv=NULL;
+    return strv;
+  }
 
   while(str[i]!=FIN_LINEA){
     if(str[i]==sep) cant++;
     i++;
   }
   char** strv=malloc(sizeof(char*)*cant);
+  if(str==VACIO){
+    strv[0]=VACIO;
+    strv[1]=NULL;
+    return strv;
+  }
+
 
   i=0;
 
@@ -38,6 +49,16 @@ char** split(const char* str, char sep){
 
 char* join(char** strv, char sep){
   size_t i=0,j=0,k=0,len=0;
+  
+  if(strv==NULL){
+    char* str=VACIO;
+    return str;
+  }
+
+  if(strv[1]==NULL){ //caso borde strv VACIO
+    char* str=VACIO;
+    return str;
+  }
   while(strv[i]!=NULL){
     len+=strlen(strv[i])+1;
     i++;
