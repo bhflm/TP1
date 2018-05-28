@@ -50,8 +50,9 @@ char** split(const char* str, char sep){
 char* join(char** strv, char sep){
   size_t i=0,j=0,k=0,len=0;
 
-  if(strv==NULL){
-    char* str=VACIO;
+  if(strv[i]==NULL){
+    char* str=malloc(sizeof(char));
+    str[i]=FIN_LINEA;
     return str;
   }
 

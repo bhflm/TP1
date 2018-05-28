@@ -18,14 +18,16 @@ int main(int argc,char* argv[]){
   size_t n = atoi(argv[1]);
   if(n==0){
     fprintf(stderr, "Tipo de parametro incorrecto\n");
+    cola_destruir(cola,NULL);
+    return 1;
   }
   char* linea = NULL;
   size_t capacidad = 0;
-
-  for(size_t i=0;i<n;i++){
-    getline(&linea,&capacidad,stdin);
+  size_t i=0;
+  while(i<n && getline(&linea,&capacidad,stdin)!=-1){
     cola_encolar(cola,linea);
     linea=NULL;
+    i++;
   }
   while(getline(&linea,&capacidad,stdin)!=-1){
       free(cola_desencolar(cola));
@@ -35,7 +37,7 @@ int main(int argc,char* argv[]){
 
   while(!cola_esta_vacia(cola)){
     char* primero = cola_ver_primero(cola);
-    printf("%s\n",primero);
+    printf("%s",primero);
     free(cola_desencolar(cola));
   }
   free(linea);
